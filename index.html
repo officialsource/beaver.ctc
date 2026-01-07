@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beaver Computational Thinking Challenge</title>
+  <link rel="icon" type="image/png" href="https://beaver.my/wp-content/uploads/2019/08/beaver-logo.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Title + Timer + Pause in one row */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 95%;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 2.5em;
+      margin: 0;
+    }
+
+    #controls {
+      display: flex;
+      align-items: center;
+      gap: 15px; /* spacing between timer and button */
+    }
+
+    #timer {
+      font-size: 2em;
+      font-weight: bold;
+      color: #fff;
+      background: #333;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    #pauseBtn {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      background: #f44336;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #pauseBtn:hover {
+      background: #d32f2f;
+    }
+
+    iframe {
+      width: 98%;
+      height: 90vh;
+      border: 3px solid #333;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Beaver Computational Thinking Challenge</h1>
+    <div id="controls">
+      <div id="timer">45:00</div>
+      <button id="pauseBtn">Pause</button>
+    </div>
+  </div>
+
+  <iframe src="https://www.bebras.uk/index.php?action=anon_join&grp_id=28592" 
+          allowfullscreen></iframe>
+
+  <script>
+    let timeLeft = 45 * 60; // 45 minutes in seconds
+    let timerInterval;
+    let isPaused = false;
+
+    function updateTimer() {
+      if (!isPaused) {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        document.getElementById("timer").textContent =
+          `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+        
+        if (timeLeft > 0) {
+          timeLeft--;
+        } else {
+          clearInterval(timerInterval);
+          alert("Time is up!");
+        }
+      }
+    }
+
+    // Start countdown immediately
+    updateTimer();
+    timerInterval = setInterval(updateTimer, 1000);
+
+    // Pause/Resume button
+    document.getElementById("pauseBtn").addEventListener("click", function() {
+      isPaused = !isPaused;
+      this.textContent = isPaused ? "Resume" : "Pause";
+    });
+  </script>
+</body>
+</html>
